@@ -1,4 +1,6 @@
-﻿Logger logger1 = Logger.GetInstance();
+﻿using SingletopPatternExample;
+
+Logger logger1 = Logger.GetInstance();
 Logger logger2 = Logger.GetInstance();
 
 logger1.Log("First Message");

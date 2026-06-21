@@ -1,0 +1,9 @@
+using System;
+
+namespace StrategyPatternExample
+{
+    public interface IPaymentStrategy
+    {
+        void Pay(decimal amount);
+    }
+}
