@@ -7,58 +7,58 @@ GO
 USE OnlineRetailStore
 GO
 
-CREATE TABLE Categories
-(
-    CategoryID INT PRIMARY KEY,
-    CategoryName VARCHAR(100) NOT NULL,
-)
+-- CREATE TABLE Categories
+-- (
+--     CategoryID INT PRIMARY KEY,
+--     CategoryName VARCHAR(100) NOT NULL,
+-- )
 
-CREATE TABLE Products
-(
-    ProductID INT PRIMARY KEY,
-    ProductName VARCHAR(100) NOT NULL,
-    CategoryID INT NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL,
+-- CREATE TABLE Products
+-- (
+--     ProductID INT PRIMARY KEY,
+--     ProductName VARCHAR(100) NOT NULL,
+--     CategoryID INT NOT NULL,
+--     Price DECIMAL(10, 2) NOT NULL,
 
-    FOREIGN KEY (CategoryID)
-        REFERENCES Categories(CategoryID)
-)
-GO
+--     FOREIGN KEY (CategoryID)
+--         REFERENCES Categories(CategoryID)
+-- )
+-- GO
 
-CREATE TABLE Customers
-(
-    CustomerID INT PRIMARY KEY,
-    FirstName VARCHAR(50) NOT NULL,
-    LastName VARCHAR(50) NOT NULL,
-    Email VARCHAR(100) UNIQUE
-);
-GO
+-- CREATE TABLE Customers
+-- (
+--     CustomerID INT PRIMARY KEY,
+--     FirstName VARCHAR(50) NOT NULL,
+--     LastName VARCHAR(50) NOT NULL,
+--     Email VARCHAR(100) UNIQUE
+-- );
+-- GO
 
-CREATE TABLE Orders
-(
-    OrderID INT PRIMARY KEY,
-    CustomerID INT NOT NULL,
-    OrderDate DATE NOT NULL,
+-- CREATE TABLE Orders
+-- (
+--     OrderID INT PRIMARY KEY,
+--     CustomerID INT NOT NULL,
+--     OrderDate DATE NOT NULL,
 
-    FOREIGN KEY (CustomerID) 
-        REFERENCES Customers(CustomerID)
-);
-GO
+--     FOREIGN KEY (CustomerID) 
+--         REFERENCES Customers(CustomerID)
+-- );
+-- GO
 
-CREATE TABLE OrderDetails
-(
-    OrderDetailID INT PRIMARY KEY,
-    OrderID INT NOT NULL,
-    ProductID INT NOT NULL,
-    Quantity INT NOT NULL,
+-- CREATE TABLE OrderDetails
+-- (
+--     OrderDetailID INT PRIMARY KEY,
+--     OrderID INT NOT NULL,
+--     ProductID INT NOT NULL,
+--     Quantity INT NOT NULL,
 
-    FOREIGN KEY (OrderID)
-        REFERENCES Orders(OrderID),
+--     FOREIGN KEY (OrderID)
+--         REFERENCES Orders(OrderID),
 
-    FOREIGN KEY (ProductID)
-        REFERENCES Products(ProductID)
-);
-GO
+--     FOREIGN KEY (ProductID)
+--         REFERENCES Products(ProductID)
+-- );
+-- GO
 
 INSERT INTO Categories (CategoryID, CategoryName)
 VALUES
@@ -77,7 +77,8 @@ VALUES
 (105, 'Desk', 4, 5000.00),
 (106, 'Headphones', 1, 2500.00),
 (107, 'Chair', 4, 3500.00),
-(108, 'Keyboard', 1, 1500.00);
+(108, 'Keyboard', 1, 1500.00),
+(109, 'Laptop2', 1, 70000.00);
 GO
 
 INSERT INTO Customers (CustomerID, FirstName, LastName, Email)
@@ -106,6 +107,20 @@ VALUES
 (6, 1003, 108, 1),
 (7, 1004, 105, 1),
 (8, 1004, 107, 4);
+GO
+
+ALTER TABLE Customers
+ADD Region VARCHAR(50);
+GO
+
+UPDATE Customers
+SET Region =
+CASE CustomerID
+    WHEN 1 THEN 'East'
+    WHEN 2 THEN 'West'
+    WHEN 3 THEN 'North'
+    WHEN 4 THEN 'South'
+END;
 GO
 
 SELECT * FROM Categories;
